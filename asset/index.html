@@ -16,7 +16,7 @@
         <input id="header_ind" type="number" value=1>
         <button id="next_pm" alt="다음문제"><div></div><object data="icons/chevron_right.svg" type="image/svg+xml"></object></button>
         <button id="bef_pm"  alt="이전문제"><div></div><object data="icons/chevron_left.svg" type="image/svg+xml"></object></button>
-        <button id="header_apply"  alt="문제보기/다시풀기"><div></div><object data="icons/slideshow.svg" type="image/svg+xml"></object></button>
+        <button id="header_apply"  alt="문제보기/다시풀기"><div></div><object data="icons/refresh.svg" type="image/svg+xml"></object></button>
         <button id="wrong_pm"  alt="틀린문제"><div></div><object data="icons/dangerous.svg" type="image/svg+xml"></object></button>
         <button id="wrong_pm_copy"  alt="틀린문제복사"><div></div><object data="icons/content_copy.svg" type="image/svg+xml"></object></button>
         
@@ -37,7 +37,7 @@
             document.getElementById('next_pm').addEventListener('click',app.nextpm)
             document.getElementById('bef_pm').addEventListener('click',app.befpm)
             document.documentElement.addEventListener('keydown',e=>{
-                console.log(e.key, e.keyCode,e.target);
+                // console.log(e.key, e.keyCode,e.target);
                 if(e.key=="ArrowRight") app.nextpm();
                 else if(e.key=="ArrowLeft") app.befpm();
                 else if(e.target.tagName!='INPUT'){
@@ -71,7 +71,7 @@
         <span id="show_com_txt"></span>
     </div>
 
-    <div id="upp"><object data="icons/chevron_right.svg" type="image/svg+xml"></object>다음문제</div>
+    <div id="upp"><object data="icons/chevron_right.svg" type="image/svg+xml"></object>다음 문제로</div>
 
     <script>
         document.getElementById('opts').addEventListener('click',app.showans)

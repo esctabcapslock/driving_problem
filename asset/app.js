@@ -105,7 +105,7 @@ const app = {
         if(app.indlist.includes(ind) || isNaN(ind)) return;
         else if(app.indlist.length < ans.length){
             app.indlist.push(ind)
-            target.style.backgroundColor = '#dddddd'
+            target.style.backgroundColor = '#cccccc'
             app.indlist.sort((a,b)=>a>b);
         }else return
         
@@ -126,7 +126,7 @@ const app = {
         const show_com = document.getElementById('show_com')
         show_com.style.display = "table-row"
         const show_com_txt = document.getElementById('show_com_txt')
-        show_com_txt.innerHTML = `${app.prepm[2].replace(/<br>/gi,' ').replace(/■/gi,'<br>■').replace(/(\d+)\./gi,'<br>$1.').replace(/(\d+)\)/gi,'<br>$1)')}`
+        show_com_txt.innerHTML = `${app.prepm[2].replace(/<br>/gi,' ').replace(/■/gi,'<br>■').replace(/(\d+)\.\s/gi,'<br>$1. ').replace(/(\d+)\)/gi,'<br>$1)')}`
     },
     add_wrong:()=>{
         const wrongpm = document.getElementById('wrong_pm')
@@ -134,10 +134,10 @@ const app = {
             app.wromgmode_out();
             return;
         }
-        const pms = [...new Set(prompt('다시 풀어보기 기능입니다.\n틀린 문제들을 입력하십시오').split('|').map(v=>Number(v)))].sort((a,b)=>a>b)
+        const pms = [...new Set(prompt('다시 풀어보기 기능입니다.\n틀린 문제들의 번호를 \'|\'로 구분하여 입력하십시오').split('|').map(v=>Number(v)))].sort((a,b)=>a>b)
         app.log = []
         if(pms.every(v=>!isNaN(v)&&1>=v&&v<app.problem.length)) {alert('잘못된 형식입니다'); return;}
-        wrongpm.style.backgroundColor = '#dddddd'
+        wrongpm.style.backgroundColor = '#cccccc'
         app.wromg_pms = pms
         document.getElementById('header_ind').value = pms[0]
         app.show_pm(pms[0])
@@ -165,9 +165,9 @@ const app = {
             else if(ind==-1){
                 app.wromgmode_out();
                 return;
-            }else {alert('전부 풀었습니다'); return;}
+            }else {alert('전부 풀었습니다.\n틀린 문제들을 다시 풀어보는 것은 어떤가요?'); return;}
         }
-        if(headerind.value==app.problem.length) {alert('마지막 문제입니다'); return;}
+        if(headerind.value==app.problem.length) {alert('마지막 문제입니다.\n틀린 문제들을 다시 풀어보는 것은 어떤가요?'); return;}
         app.show_pm(++headerind.value)
     },
     befpm:()=>{
