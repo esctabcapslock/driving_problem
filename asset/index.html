@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <link rel="icon" href="icons/baseline_directions_car.png">
+    <title>운전면허 학과시험 연습</title>
+    <script src="app.js"></script>
+    <script>if(!window.fetch){alert('본 문서는 인터넷 익스플로러에서 작동하지 않습니다.')}</script>
+</head>
+<body>
+    <header>
+
+        <input id="header_ind" type="number" value=1>
+        <button id="next_pm" alt="다음문제"><div></div><object data="icons/chevron_right.svg" type="image/svg+xml"></object></button>
+        <button id="bef_pm"  alt="이전문제"><div></div><object data="icons/chevron_left.svg" type="image/svg+xml"></object></button>
+        <button id="header_apply"  alt="문제보기/다시풀기"><div></div><object data="icons/slideshow.svg" type="image/svg+xml"></object></button>
+        <button id="wrong_pm"  alt="틀린문제"><div></div><object data="icons/dangerous.svg" type="image/svg+xml"></object></button>
+        <button id="wrong_pm_copy"  alt="틀린문제복사"><div></div><object data="icons/content_copy.svg" type="image/svg+xml"></object></button>
+        
+
+
+        <script>
+            app.getproblem(()=>{
+                const ele = document.getElementById('header_ind')
+                if(!ele) return;
+                app.show_pm(ele.value)
+            })
+    
+            function pmshow(){app.show_pm(document.getElementById('header_ind').value)}
+            document.getElementById('header_apply').addEventListener('click',pmshow)
+            document.getElementById('header_ind').addEventListener('click',pmshow)
+            document.getElementById('header_ind').addEventListener('change',pmshow)
+            
+            document.getElementById('next_pm').addEventListener('click',app.nextpm)
+            document.getElementById('bef_pm').addEventListener('click',app.befpm)
+            document.documentElement.addEventListener('keydown',e=>{
+                console.log(e.key, e.keyCode,e.target);
+                if(e.key=="ArrowRight") app.nextpm();
+                else if(e.key=="ArrowLeft") app.befpm();
+                else if(e.target.tagName!='INPUT' && e.keyCode>= 49 && e.keyCode<=54){ //1,2,3,4,5,6
+                    //키보드로 문항 클릭 단축키
+                    const ele = document.querySelector(`.pm_${e.key}`)
+                    if(ele) ele.click()
+                }
+            })
+            document.getElementById('wrong_pm').addEventListener('click',app.add_wrong)
+            document.getElementById('wrong_pm_copy').addEventListener('click',app.copywrongpm)
+            
+        </script>
+    </header>
+    <main>
+    <div id="show_pm">
+        <div id="pmph"><span id="pmind"></span><span id="pmhd"></span></div>
+        <div ><span></span><span id="imgs"></span></div>
+        <div ><span></span><span id="opts"></span></div>
+    </div>
+    <div id="show_ans"></div>
+    <div id="show_com" style="display: none;">
+        <span id="show_com_imgwrop">
+            <div>
+            <img src="icons/sol.jpg">
+            <span>해설</span>
+        </div>
+        </span>
+        <span id="show_com_txt"></span>
+    </div>
+
+    <script>
+        document.getElementById('opts').addEventListener('click',app.showans)
+        // document.getElementById('opts/').addEventListener('click',app.showcom)
+    </script>
+    </main>
+</body>
+</html>
