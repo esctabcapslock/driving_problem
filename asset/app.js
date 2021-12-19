@@ -49,7 +49,7 @@ const app = {
         })
     },
     show_pm:(ind)=>{
-        if(!app.problem.length || !ind || isNaN(ind)) return
+        if(!app.problem.length || !ind || isNaN(ind) || ind<=0 || ind>=app.problem.length) return
         if(Array.isArray(app.wromg_pms)&&!app.wromg_pms.includes(Number(ind))) app.wromgmode_out()
         const val = app.problem[ind]
         app.prepm = val;//현제 문제 정보
@@ -126,7 +126,7 @@ const app = {
         const show_com = document.getElementById('show_com')
         show_com.style.display = "table-row"
         const show_com_txt = document.getElementById('show_com_txt')
-        show_com_txt.innerHTML = `${app.prepm[2].replace(/<br>/gi,' ').replace(/■/gi,'<br>■').replace(/(\d+)\./gi,'<br>$1.')}`
+        show_com_txt.innerHTML = `${app.prepm[2].replace(/<br>/gi,' ').replace(/■/gi,'<br>■').replace(/(\d+)\./gi,'<br>$1.').replace(/(\d+)\)/gi,'<br>$1)')}`
     },
     add_wrong:()=>{
         const wrongpm = document.getElementById('wrong_pm')
@@ -134,7 +134,8 @@ const app = {
             app.wromgmode_out();
             return;
         }
-        const pms = [...new Set(prompt('틀린 문제를 입력하십시오').split('|').map(v=>Number(v)))].sort((a,b)=>a>b)
+        const pms = [...new Set(prompt('다시 풀어보기 기능입니다.\n틀린 문제들을 입력하십시오').split('|').map(v=>Number(v)))].sort((a,b)=>a>b)
+        app.log = []
         if(pms.every(v=>!isNaN(v)&&1>=v&&v<app.problem.length)) {alert('잘못된 형식입니다'); return;}
         wrongpm.style.backgroundColor = '#dddddd'
         app.wromg_pms = pms
@@ -164,8 +165,9 @@ const app = {
             else if(ind==-1){
                 app.wromgmode_out();
                 return;
-            }else headerind.value--
+            }else {alert('전부 풀었습니다'); return;}
         }
+        if(headerind.value==app.problem.length) {alert('마지막 문제입니다'); return;}
         app.show_pm(++headerind.value)
     },
     befpm:()=>{
@@ -176,8 +178,9 @@ const app = {
             else if(ind==-1){
                 app.wromgmode_out();
                 return;
-            }else headerind.value++
+            }else {alert('첫 번째 문제입니다'); return;}
         }
+        if(headerind.value==1) {alert('첫 번째 문제입니다'); return;}
         app.show_pm(--headerind.value)
         
     }

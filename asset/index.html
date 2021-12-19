@@ -40,10 +40,13 @@
                 console.log(e.key, e.keyCode,e.target);
                 if(e.key=="ArrowRight") app.nextpm();
                 else if(e.key=="ArrowLeft") app.befpm();
-                else if(e.target.tagName!='INPUT' && e.keyCode>= 49 && e.keyCode<=54){ //1,2,3,4,5,6
-                    //키보드로 문항 클릭 단축키
-                    const ele = document.querySelector(`.pm_${e.key}`)
-                    if(ele) ele.click()
+                else if(e.target.tagName!='INPUT'){
+                    if(e.keyCode>= 49 && e.keyCode<=54){ //1,2,3,4,5,6
+                        //키보드로 문항 클릭 단축키
+                        const ele = document.querySelector(`.pm_${e.key}`)
+                        if(ele) ele.click()
+                    }
+                    else if(e.key=="Enter") app.nextpm();
                 }
             })
             document.getElementById('wrong_pm').addEventListener('click',app.add_wrong)
@@ -68,8 +71,11 @@
         <span id="show_com_txt"></span>
     </div>
 
+    <div id="upp"><object data="icons/chevron_right.svg" type="image/svg+xml"></object>다음문제</div>
+
     <script>
         document.getElementById('opts').addEventListener('click',app.showans)
+        document.getElementById('upp').addEventListener('click',()=>{document.documentElement.scrollTop=1; app.nextpm();})
         // document.getElementById('opts/').addEventListener('click',app.showcom)
     </script>
     </main>
