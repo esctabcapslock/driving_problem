@@ -1,4 +1,4 @@
-# 대한민국 운전면허시험 1, 2종 학과시험 온라인 연습장
+# 대한민국 운전면허시험 1, 2종 학과시험 전자 문제집
 
 ## [바로가기](https://esctabcapslock.github.io/driving_problem/asset/index.html) 
 

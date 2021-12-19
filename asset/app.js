@@ -136,7 +136,8 @@ const app = {
         }
         const pms = [...new Set(prompt('다시 풀어보기 기능입니다.\n틀린 문제들의 번호를 \'|\'로 구분하여 입력하십시오').split('|').map(v=>Number(v)))].sort((a,b)=>a>b)
         app.log = []
-        if(pms.every(v=>!isNaN(v)&&1>=v&&v<app.problem.length)) {alert('잘못된 형식입니다'); return;}
+        console.log(pms)
+        if(!pms || !pms.length || pms.some(v=>isNaN(v)||1>=v||v>=app.problem.length)) {alert('잘못된 형식입니다'); return;}
         wrongpm.style.backgroundColor = '#cccccc'
         app.wromg_pms = pms
         document.getElementById('header_ind').value = pms[0]
@@ -152,10 +153,10 @@ const app = {
         const a = [...new Set(app.log.filter(v=>!v[1]).map(v=>Number(v[0])))].sort((a,b)=>a>b)
         const b = a.join('|').trim()
         console.log(b)
-        if(!b) {alert('틀린 문제가 없습니다.'); return;}
+        if(!b) {alert('오답 목록을 복사하는 기능입니다.\n틀린 문제가 없습니다.'); return;}
 
         copy2(b)
-        alert('오답이 복사되었습니다.')
+        alert('오답 목록이 복사되었습니다.')
     },nextpm:()=>{
         const headerind = document.getElementById('header_ind')
         if(Array.isArray(app.wromg_pms)){
